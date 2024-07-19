@@ -12,6 +12,14 @@ model Movie {
   title       String
   category    String
   releaseYear String
-  rateAverage Float
-  voteCount   Int
+  ratings     Rating[] 
+  rateAverage Float @default(0.0)
+  voteCount   Int @default(0)
+}
+
+model Rating {
+  id      String @id @default(cuid())
+  rating  Float
+  movieId String
+  movie   Movie  @relation(fields: [movieId], references: [id], onDelete: Cascade)
 }
